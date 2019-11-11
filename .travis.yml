@@ -1,4 +1,19 @@
-language: java
 sudo: false
+language: java
 
-script: ./mvnw verify
+cache:
+  directories:
+    - $HOME/.m2
+
+before_install:
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+
+matrix:
+  include:
+    # GraalVM
+    - env: JDK='GraalVM 19'
+      install: . ./install-jdk.sh --url "https://github.com/oracle/graal/releases/download/vm-19.2.1/graalvm-ce-linux-amd64-19.2.1.tar.gz"
+
+
+script:
+  - mvn verify -Pnative -Dnative-image.docker-build=true
