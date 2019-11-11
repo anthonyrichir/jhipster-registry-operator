@@ -14,6 +14,8 @@ matrix:
     - env: JDK='GraalVM 19'
       install: . ./install-jdk.sh --url "https://github.com/oracle/graal/releases/download/vm-19.2.1/graalvm-ce-linux-amd64-19.2.1.tar.gz"
 
+install:
+  - gu install native-image
 
 script:
   - mvn verify -Pnative -Dnative-image.docker-build=true
