@@ -1,4 +1,4 @@
 language: java
 sudo: false
 
-script: ./mvnw verify -Pnative -Dnative-image.docker-build=true
+script: ./mvnw verify
