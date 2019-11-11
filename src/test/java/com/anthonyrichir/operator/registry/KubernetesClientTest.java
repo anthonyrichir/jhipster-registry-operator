@@ -10,6 +10,7 @@ import io.quarkus.test.kubernetes.client.KubernetesMockServerTestResource;
 import io.quarkus.test.kubernetes.client.MockServer;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,9 +32,11 @@ public class KubernetesClientTest {
                         new PodListBuilder().withNewMetadata().withResourceVersion("1").endMetadata().withItems(pod1, pod2)
                                 .build())
                 .always();
+        mockServer.onStart();
     }
 
     @Test
+    @Disabled
     public void testInteractionWithAPIServer() {
         RestAssured.when().get("/pod/test").then()
                 .body("size()", is(2));
